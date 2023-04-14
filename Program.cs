@@ -9,33 +9,45 @@ namespace Task_2
     internal class Program
     {
         static void Main(string[] args)
-        {   //Task_1
+        {   ////    Task_1  ////
             Console.WriteLine("Please enter your word:");
             string sentence = Console.ReadLine().ToLower();
             string[] words = ReplaceHyphens(sentence).Split();
             Console.WriteLine("Your word are: ");
             PrintArray(words);
             ArePalindromes(words);
-            Console.ReadKey();
+         
             //
 
-            //Task_2
+            ///    Task_2  ///
             bool validArray = false;
             while (!validArray)
             {
                 int[] numbers = GetNumbers();
-                if(numbers != null)
+                Console.WriteLine();
+                if (numbers != null)
                 {
                     SwapArray(numbers);
                     validArray = true;
                 }
-      
+
             }
             Console.ReadKey();
-            ///
+            ///      ///
+
+            ///   Task_3  ///
+            int[,] matrix = { { 0, 1, 2 }, { 3, 4, 5 }, { 6, 7, 8 } };
+            PrintMatrix(matrix);
+            Console.WriteLine();
+            int[,] newMatrix = ChangeElements(matrix);
+            PrintMatrix(newMatrix);
+            Console.ReadKey();
+
+            ///     ///
 
         }
 
+        ////    Task_1  ////
         static string ReplaceHyphens(string senteces)
         {
             string onlyLetters = "";
@@ -70,7 +82,9 @@ namespace Task_2
                 IsPalindrome(word);
             }
         }
+        ////    Task_1  ////
 
+        ////    Task_2  ////
         static void PrintArray(object[] array)
         {
             foreach (string element in array)
@@ -93,7 +107,7 @@ namespace Task_2
             int num;
             int i = 0;
 
-            foreach(string number in stringsNumbers)
+            foreach (string number in stringsNumbers)
             {
                 if (!int.TryParse(number, out num))
                 {
@@ -117,12 +131,10 @@ namespace Task_2
             {
                 if (int.TryParse(input, out num))
                 {
-                    // The input is a valid number
                     isValidInput = true;
                 }
                 else
                 {
-                    // The input is not a valid number, so we cannot cast it to int
                     Console.WriteLine("The input is not a number.");
                     Console.WriteLine("Enter a number ");
                     input = Console.ReadLine();
@@ -133,17 +145,60 @@ namespace Task_2
         }
 
         static void SwapArray(int[] array)
-        { // Swap the elements using a loop
+        {
             for (int i = 0; i < array.Length / 2; i++)
             {
-                // Swap the i-th and (len(arr)-i-1)-th elements
+
                 int temp = array[i];
                 array[i] = array[array.Length - i - 1];
                 array[array.Length - i - 1] = temp;
             }
-
-            // Print the swapped array
             Console.WriteLine("Swapped array: [" + string.Join(", ", array) + "]");
         }
+        ////    Task_2  ////
+
+        ////    Task_3 ////
+        static int[,] ChangeElements(int[,] matrix){
+            int rowsC = matrix.GetLength(0);
+            int colsC = matrix.GetLength(1);
+
+            int[,] newMatrix = new int[rowsC, colsC];
+
+            for (int i = 0; i < rowsC ; i++)
+            {
+                for(int j = 0; j < colsC; j++) { 
+                   if(i != j)
+                   {
+                        if(i>j)
+                        {
+                            newMatrix[i, j] = 0;
+                        }else {
+                            newMatrix[i, j] = 1;
+                        }
+                   }
+                    else
+                    {
+                        newMatrix[i, j] = matrix[i, j];
+                    }
+
+                }
+            }
+            return newMatrix;
+        }
+
+
+
+        static void PrintMatrix(int[,] matrix) {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write(matrix[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+        ///    Task_3  ////
+
     }
 }
